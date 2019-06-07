@@ -8,6 +8,10 @@ WORKDIR /home/www-data
 COPY package.json ./
 COPY package-lock.json ./
 
+RUN apt update && \ 
+    apt upgrade -y && \
+    apt install git -y
+
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
     userdel -f www-data &&\
     if getent group www-data ; then groupdel www-data; fi &&\
@@ -21,4 +25,4 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
 
 USER www-data
 
-ENTRYPOINT npm run setup
+ENTRYPOINT /bin/bash

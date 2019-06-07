@@ -19,8 +19,6 @@ RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
         /home/www-data \
 ;fi
 
-RUN npm install
-
 USER www-data
 
-ENTRYPOINT /bin/bash
+ENTRYPOINT npm run start
